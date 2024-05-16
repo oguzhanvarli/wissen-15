@@ -53,7 +53,69 @@ console.log(selam)
 
 
 //GET İŞLEMİ
-app.get("/products", (req,res) => {
-  res.send("Burası Products")
-})
+// app.get("/products", (req,res) => {
+//   res.send("Burası Products")
+// })
 
+
+//OPERATORS
+
+let sayi1 = 10
+let sayi2 = "10"
+
+
+if(sayi1 === sayi2){
+  console.log("Sayılar Eşit")
+}else{
+  console.log('Sayılar Eşit Değil')
+}
+
+
+
+
+let value1 = "1"
+let value2 = true
+
+if(value1 == value2){
+  console.log("Boolean Değerler Eşit")
+}else{
+  console.log('Boolean Değerler Eşit Değil')
+}
+
+
+let array1 = []
+
+if(array1){
+  //Boş array Buraya girer
+  console.log('Array Burada')
+}else{
+  console.log("Hayır Array Burada -Else")
+}
+
+let null1 = null
+
+if(null1){
+  console.log('Null Burada')
+}else{
+  //Null değeri buraya Düşer
+  console.log("Hayır Null Burada -Else")
+}
+
+let object1 = {}
+
+if(object1){
+  //Boş object buraya girer
+  console.log('Object Burada')
+}else{
+  console.log("Hayır Object Burada -Else")
+}
+
+// let undefined1;
+let undefined1 = undefined
+
+if(undefined1){
+  console.log('Undefined Burada')
+}else{
+  //Undefined else düşer
+  console.log("Hayır Undefined Burada -Else")
+}
