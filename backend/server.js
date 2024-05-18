@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 
 const Product = require("./models/ProductModel")
 const ProductRouter = require("./router/ProductRouter")
+const UserRouter = require("./router/UserRouter")
 
 
 mongoose.connect("mongodb+srv://oguzhanvarli:oguzhanvarli@cluster0.4y4uz6y.mongodb.net/wissen-15?retryWrites=true&w=majority&appName=Cluster0")
@@ -15,9 +16,10 @@ app.use(express.json())
 
 //ROUTES
 app.use("/product", ProductRouter)
+app.use("/user", UserRouter)
 
 app.get("/", (req,res) => {
-  res.send("Merhaba ben senin ilk get Api adresinim")
+  res.send("Merhaba ben senin ilk get endpointinim.")
 })
 
  
