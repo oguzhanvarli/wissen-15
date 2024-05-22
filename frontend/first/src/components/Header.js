@@ -1,8 +1,9 @@
 import React from 'react'
 
-function Header() {
+function Header(prop) {
+  console.log(prop.yazi)
   return (
-    <h1>Header</h1>
+    <h1>{prop.yazi}</h1>
   )
 }
 

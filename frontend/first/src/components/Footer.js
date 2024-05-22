@@ -1,8 +1,11 @@
 import React from 'react'
 
-function Footer() {
+function Footer({ footerText, myAge }) {
   return (
-    <h1>Footer</h1>
+    <>
+      <h1>{footerText}</h1>
+      <h1>{myAge}</h1>
+    </>
   )
 }
 

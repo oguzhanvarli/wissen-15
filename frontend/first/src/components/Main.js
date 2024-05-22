@@ -1,8 +1,9 @@
 import React from 'react'
 
-function Main() {
+function Main(prop) {
+  let {yazi2} = prop
   return (
-    <h1>Main</h1>
+    <h1>{yazi2}</h1>
   )
 }
 
