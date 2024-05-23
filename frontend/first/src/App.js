@@ -6,6 +6,7 @@ import PropSample from './samples/PropSample'
 import UseStateSample from './samples/UseStateSample'
 import CounterSample from './samples/CounterSample'
 import ServiceSample from './samples/ServiceSample'
+import UseEffectSample from './samples/UseEffectSample'
 
 function App() {
 
@@ -14,7 +15,8 @@ function App() {
       {/* <PropSample /> */}
       {/* <UseStateSample /> */}
       {/* <CounterSample /> */}
-      <ServiceSample/>
+      {/* <ServiceSample/> */}
+      <UseEffectSample />
     </>
   )
 }
