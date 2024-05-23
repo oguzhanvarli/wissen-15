@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const dotenv = require("dotenv").config()
+const cors = require("cors")
 
 const Product = require("./models/ProductModel")
 const ProductRouter = require("./router/ProductRouter")
@@ -16,6 +17,11 @@ mongoose.connect("mongodb+srv://oguzhanvarli:oguzhanvarli@cluster0.4y4uz6y.mongo
 const app = express()
 
 app.use(express.json())
+
+//CORS
+app.use(cors({
+  origin : "*"
+}))
 
 
 //ROUTES
