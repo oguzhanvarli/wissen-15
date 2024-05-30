@@ -9,11 +9,13 @@ import axios from 'axios'
 import SendIcon from '@mui/icons-material/Send';
 import { Formik } from "formik"
 import * as Yup from "yup"
-import {useNavigate} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { toast } from 'react-toastify';
+import bg from "../assets/images/login-bg.jpg"
 
 const LoginSchema = Yup.object().shape({
-  username : Yup.string().required("Username is required!")
-  .min(3, "Username is too short!").max(20, "Username is too long!"),
+  username: Yup.string().required("Username is required!")
+    .min(3, "Username is too short!").max(20, "Username is too long!"),
   password: Yup.string().required("Password is required!").min(4, "Password is too short!")
 })
 
@@ -24,19 +26,21 @@ function Login() {
 
   const handleLogin = async (loginObject) => {
     try {
-      let response = await axios.post("http://localhost:9000/user/login",loginObject)
+      let response = await axios.post("http://localhost:9000/user/login", loginObject)
       console.log(response.data)
-      if(response.data.status){
+      if (response.data.status) {
+        toast.success(response.data.message)
         navigate("/")
       }
     } catch (error) {
+      toast.error(error.response.data.message)
       console.log(error.response)
     }
   }
 
   return (
-    <div className='flex justify-center items-center h-screen'>
-      <div style={{ minWidth: "300px" }}>
+    <div className='flex justify-center items-center h-screen' style={{backgroundImage: `url(${bg})`, backgroundPosition: "center", backgroundSize:"cover", backgroundRepeat: "no-repeat"}} >
+      <div style={{ minWidth: "300px" }} className='border-gray-300 border-2 p-6 rounded-lg bg-blue-800 bg-opacity-20'>
         <Formik
           initialValues={{ username: "", password: "" }}
           onSubmit={(value) => handleLogin(value)}
@@ -68,7 +72,10 @@ function Login() {
                   helperText={touched.password && errors.password}
                 />
               </div>
-              <div className='flex justify-center'>
+              <span className='my-3 text-sm'>Don't have an account? 
+                <Link to="/register" className=' underline text-blue-400 ml-1'>Create Now!</Link>
+              </span>
+              <div className='flex justify-center mt-3'>
                 <Button variant='outlined' onClick={handleSubmit} endIcon={<SendIcon />}>Login</Button>
               </div>
             </>
