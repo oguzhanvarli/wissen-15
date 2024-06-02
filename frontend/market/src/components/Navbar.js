@@ -14,11 +14,20 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Badge } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 const pages = ['Products', 'Blog', 'Cart'];
 const settings = ['Profile', 'Logout'];
 
 function Navbar() {
+
+
+  const navigate = useNavigate()
+
+  const { cartNumber } = useSelector(state => state.cart)
+
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -41,23 +50,23 @@ function Navbar() {
     <AppBar position="static" sx={{ backgroundColor: "rgba(250,235,215, 0.8)", marginBottom: "15px" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'black',
-              textDecoration: 'none',
-            }}
-          >
-            Shop
-          </Typography>
+          <Link to="/">
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'black',
+                textDecoration: 'none',
+              }}
+            >
+              Shop
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -127,8 +136,8 @@ function Navbar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton sx={{mr: 2}}>
-              <Badge badgeContent={1} color='error'>
+            <IconButton sx={{ mr: 2, border: "1px solid gray" }} onClick={() => navigate("/cart")}>
+              <Badge badgeContent={cartNumber} color='error'>
                 <ShoppingCartOutlinedIcon />
               </Badge>
             </IconButton>
@@ -163,7 +172,7 @@ function Navbar() {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar >
   );
 }
 export default Navbar;
