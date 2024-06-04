@@ -15,8 +15,20 @@ export const counterSlice = createSlice({
   initialState,
   reducers:{
     increment: (state,action) => {
+      let isHas = false
       state.cartNumber += 1
-      state.products.push(action.payload)
+      let newValue = state.products.map((product) => {
+        if(product._id === action.payload._id){
+          isHas = true
+          return {...product, cartQuantity: product.cartQuantity + 1 }
+        }
+      })
+      console.log(newValue)
+      if(isHas){
+        state.products.push(newValue[0])
+      }else{
+        state.products.push(action.payload)
+      }
     },
     clearCart : (state) => {
       //state = initialState
