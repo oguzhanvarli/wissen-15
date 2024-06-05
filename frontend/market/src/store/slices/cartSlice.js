@@ -7,41 +7,67 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cartNumber: 0,
-  products : []
+  products: []
 }
 
 export const counterSlice = createSlice({
   name: "counter",
   initialState,
-  reducers:{
-    increment: (state,action) => {
-      let isHas = false
+  reducers: {
+    increment: (state, action) => {
       state.cartNumber += 1
-      let newValue = state.products.map((product) => {
-        if(product._id === action.payload._id){
-          isHas = true
-          return {...product, cartQuantity: product.cartQuantity + 1 }
-        }
-      })
-      console.log(newValue)
-      if(isHas){
-        state.products.push(newValue[0])
-      }else{
+      let product = state.products.find(item => item._id === action.payload._id)
+      if (product) {
+        //Aynı ürüne ikinci defa tıklanmış
+        let newProducts = state.products.map((item) => {
+          if(action.payload._id === item._id) {
+            return {...item, cartQuantity : item.cartQuantity + 1}
+          }
+          return item
+        })
+        state.products = newProducts
+      } else {
+        //Ürüne ilk defa tıklanmış
         state.products.push(action.payload)
       }
     },
-    clearCart : (state) => {
+    clearCart: (state) => {
       //state = initialState
       state.products = []
       state.cartNumber = 0
     },
-    removeItem : (state,action) => {
+    removeItem: (state, action) => {
       let newProduct = state.products.filter(product => product._id !== action.payload)
-      state.cartNumber -= 1
+      let totalQuantity = 0
+      newProduct.forEach(element => {
+        totalQuantity += element.cartQuantity
+      });
       state.products = newProduct
+      state.cartNumber = totalQuantity
+      
+    },
+    addOneProduct : (state,action) => {
+      let newProducts = state.products.map((item) => {
+        if(action.payload._id === item._id) {
+          return {...item, cartQuantity : item.cartQuantity + 1}
+        }
+        return item
+      })
+      state.cartNumber += 1
+      state.products = newProducts
+    },
+    removeOneProduct : (state,action) => {
+      let newProducts = state.products.map((item) => {
+        if(action.payload._id === item._id) {
+          return {...item, cartQuantity : item.cartQuantity - 1}
+        }
+        return item
+      })
+      state.cartNumber -= 1
+      state.products = newProducts
     }
   }
 })
 
-export const {increment, clearCart, removeItem} = counterSlice.actions
+export const { increment, clearCart, removeItem, addOneProduct, removeOneProduct } = counterSlice.actions
 export default counterSlice.reducer

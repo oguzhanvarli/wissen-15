@@ -9,9 +9,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import { DeleteForeverOutlined } from '@mui/icons-material';
-import { clearCart, removeItem } from '../store/slices/cartSlice';
+import { addOneProduct, clearCart, removeItem, removeOneProduct } from '../store/slices/cartSlice';
 import { toast } from 'react-toastify';
 import YesNoModal from '../components/YesNoModal';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 function Cart() {
 
@@ -42,6 +44,14 @@ function Cart() {
     toast.success("Products Deleted")
   }
 
+  const incrementProduct = (product) => {
+    if(product.cartQuantity !== product.quantity){
+      dispatch(addOneProduct(product))
+    }else{
+      toast.error("No Enough Stock for that Product!")
+    }
+  }
+
   // const 
 
   return (
@@ -53,8 +63,8 @@ function Cart() {
               <TableCell>Image</TableCell>
               <TableCell>Product Name</TableCell>
               <TableCell>Price</TableCell>
-              <TableCell>Quantity</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell align='center'>Quantity</TableCell>
+              <TableCell align='center'>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -68,8 +78,12 @@ function Cart() {
                 </TableCell>
                 <TableCell>{product.productName}</TableCell>
                 <TableCell>{product.price}</TableCell>
-                <TableCell>{product.cartQuantity}</TableCell>
-                <TableCell><DeleteForeverOutlined color='error' onClick={() => removeItemFromComponenet(product._id)} /></TableCell>
+                <TableCell align='center'>
+                  <RemoveCircleOutlineIcon className='mx-2' onClick={product.cartQuantity === 1 ? () => removeItemFromComponenet(product._id) : () => dispatch(removeOneProduct(product))} />
+                  {product.cartQuantity}
+                  <AddCircleOutlineIcon className='mx-2' onClick={() => incrementProduct(product)} />
+                  </TableCell>
+                <TableCell align='center'><DeleteForeverOutlined color='error' onClick={() => removeItemFromComponenet(product._id)} /></TableCell>
               </TableRow>
             ))}
           </TableBody>

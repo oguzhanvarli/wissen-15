@@ -119,3 +119,43 @@ if(undefined1){
   //Undefined else düşer
   console.log("Hayır Undefined Burada -Else")
 }
+
+
+
+//SPREAD OPERATÖRÜ
+let arraySpread = ["asd", "fgh", 1, 2,3,4,5]
+console.log(arraySpread)
+
+
+let objectSpread = {
+  name: "Oğuzhan",
+  surname: "Varlı",
+  age: 28,
+  city: "İstanbul",
+  title: "Teacher"
+}
+let objectInArray = [
+  {
+    city: "İstanbul",
+    code: "34"
+  },
+  {
+    city: "Ankara",
+    code: "06"
+  }
+]
+
+// let newArray = arraySpread.push('yeni')
+// let newArray = [arraySpread, "yeni"]
+let newArray = [...arraySpread, "yeni"]
+console.log(newArray)
+
+// let newObject = {objectSpread, age:29 }
+let newObject = {...objectSpread, age: 29, city: "London"}
+console.log(newObject)
+
+let myNewData = {city: "İzmir", code: "35"}
+let newobjectInArray = [...objectInArray, myNewData]
+console.log(newobjectInArray)
+
+
