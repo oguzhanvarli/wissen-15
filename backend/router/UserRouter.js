@@ -26,7 +26,7 @@ UserRouter.post("/login", async(req, res) => {
     if(enteredUser.password !== password){
       return res.status(404).send({status: false, message: 'Incorrect Password!'})
     }
-    let access_token = jwt.sign({id:enteredUser._id, username:enteredUser.username},process.env.KEYFORJWT,{expiresIn: "1h"})
+    let access_token = jwt.sign({id:enteredUser._id, username:enteredUser.username, email: enteredUser.email},process.env.KEYFORJWT,{expiresIn: "1h"})
     res.status(200).send({status: true, message: `Welcome ${enteredUser.username}`, user:enteredUser, access_token: access_token})
 
   } catch (error) {

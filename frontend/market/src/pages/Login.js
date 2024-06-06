@@ -13,6 +13,9 @@ import { Link, useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify';
 import bg from "../assets/images/login-bg.jpg"
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { jwtDecode } from 'jwt-decode';
+import { useDispatch } from 'react-redux';
+import { handleLogin } from '../store/slices/userSlice';
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string().required("Username is required!")
@@ -25,19 +28,21 @@ function Login() {
 
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [isShow, setIsShow] = useState(false)
 
-  const handleLogin = async (loginObject) => {
+  const setLogin = async (loginObject) => {
     try {
       let response = await axios.post("http://localhost:9000/user/login", loginObject)
-      console.log(response.data)
       if (response.data.status) {
         toast.success(response.data.message)
+        localStorage.setItem("access_token", response.data.access_token)
+        dispatch(handleLogin(response.data.user))
         navigate("/")
       }
     } catch (error) {
-      toast.error(error.response.data.message)
+      // toast.error(error.response.data.message)
       console.log(error.response)
     }
   }
@@ -47,7 +52,7 @@ function Login() {
       <div style={{ minWidth: "300px" }} className='border-gray-300 border-2 p-6 rounded-lg bg-blue-800 bg-opacity-20'>
         <Formik
           initialValues={{ username: "", password: "" }}
-          onSubmit={(value) => handleLogin(value)}
+          onSubmit={(value) => setLogin(value)}
           validationSchema={LoginSchema}
         >
          
