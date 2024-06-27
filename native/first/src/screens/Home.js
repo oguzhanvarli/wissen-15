@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Card } from '@rneui/themed'
 import CharacterCard from '../components/CharacterCard'
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [data, setData] = useState([])
 
   useEffect(() => {
@@ -22,11 +22,15 @@ const Home = () => {
     }
   }
 
+  const goToDetails = () => {
+   navigation.navigate("Detail")
+  }
+
   return (
     <ScrollView>
       {
         data.map((item, key) => (
-          <CharacterCard item={item} />
+          <CharacterCard item={item} onPress={goToDetails} />
         ))
       }
     </ScrollView>
