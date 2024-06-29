@@ -1,14 +1,16 @@
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
 import { Card } from '@rneui/themed';
 import CharcterCardText from '../components/CharcterCardText';
 
-const CharacterDetail = ({ route }) => {
+const CharacterDetail = ({ route, navigation }) => {
   const { itemId } = route.params;
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+
+  console.log(data)
 
   useEffect(() => {
     getCharacterData();
@@ -66,9 +68,11 @@ const CharacterDetail = ({ route }) => {
                 data={data.episode}
                 horizontal
                 renderItem={({ item }) => (
-                  <View style={styles.episodeContainer}>
-                    <Text style={styles.episodeText}>{item.split("episode/")[1]}</Text>
-                  </View>
+                  <TouchableOpacity  onPress={() => navigation.navigate("Episode", { itemId: item.split("episode/")[1] })}>
+                    <View style={styles.episodeContainer}>
+                      <Text style={styles.episodeText}>{item.split("episode/")[1]}</Text>
+                    </View>
+                  </TouchableOpacity>
                 )}
               />
             </LinearGradient>
