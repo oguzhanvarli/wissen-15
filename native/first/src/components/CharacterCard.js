@@ -8,7 +8,7 @@ const CharacterCard = ({ item, onPress }) => {
 
   return (
 
-    <TouchableOpacity onPress={() => onPress()}>
+    <TouchableOpacity onPress={() => onPress(item.id)}>
       <Card containerStyle={{ padding: 0 }} >
         <LinearGradient
           colors={['#2EABD1', '#E4EfE9']}

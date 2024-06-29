@@ -9,10 +9,9 @@ const Home = ({ navigation }) => {
   const [pageNumber, setPageNumber] = useState(1)
 
   useEffect(() => {
-    //getData()
+    getData()
   }, [])
 
-  //INFINITY SCROOL GELDİĞİ İÇİN GEREK KALMADI
   const getData = async () => {
     try {
       let response = await axios.get("https://rickandmortyapi.com/api/character")
@@ -22,16 +21,15 @@ const Home = ({ navigation }) => {
     }
   }
 
-  const goToDetails = () => {
-    navigation.navigate("Detail")
+  const goToDetails = (id) => {
+    navigation.navigate("Detail", {itemId: id})
   }
 
   useEffect(() => {
-      getPageCharacters()
+    if(pageNumber !== 1) getPageCharacters()
   }, [pageNumber])
 
   const getPageCharacters = async () => {
-    console.log("Workend")
     try {
       let response = await axios.get(`https://rickandmortyapi.com/api/character?page=${pageNumber}`)
       setData([...data, ...response.data.results])
@@ -43,12 +41,6 @@ const Home = ({ navigation }) => {
   // console.log(pageNumber)
 
   return (
-    <View>
-      {/* {
-        data.map((item, key) => (
-          <CharacterCard item={item} onPress={goToDetails} />
-        ))
-      } */}
       <FlatList
         keyExtractor={item => item.id}
         data={data}
@@ -56,14 +48,13 @@ const Home = ({ navigation }) => {
         ListHeaderComponent={<Text style={styles.headerText}>Rick And Morty App</Text>}
         //INFINITY SCROLL
         onEndReached={() => setPageNumber(pageNumber + 1)}
-        onEndReachedThreshold={5}
+        onEndReachedThreshold={2}
         ListFooterComponent={
           <View style={styles.loadingIndicator}>
             <ActivityIndicator size={"large"} color={"#2EABD1"} />
           </View>
         }
       />
-    </View>
   )
 }
 

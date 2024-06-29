@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const CharacterDetail = () => {
+const CharacterDetail = ({route}) => {
+  const {itemId} = route.params 
+  console.log(itemId)
+  //https://rickandmortyapi.com/api/character/ + itemId
   return (
     <View>
       <Text>CharacterDetail</Text>
