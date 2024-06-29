@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const CharcterCardText = ({title, content}) => {
+const CharcterCardText = ({title, content, color}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, {color: color}]}>{title}</Text>
       <Text style={styles.content}>{content}</Text>
     </View>
   )
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 15,
     fontWeight: "700",
-    color: "#93A5CF"
+    // color: "#93A5CF"
   },
   content: {
     fontSize: 15,

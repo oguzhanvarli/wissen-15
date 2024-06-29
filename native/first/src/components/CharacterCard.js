@@ -23,9 +23,9 @@ const CharacterCard = ({ item, onPress }) => {
               resizeMode="contain"
               source={{ uri: item.image }}
             />
-            <CharcterCardText title={"Status"} content={item.status} />
-            <CharcterCardText title={"Species"} content={item.species} />
-            <CharcterCardText title={"Gender"} content={item.gender} />
+            <CharcterCardText title={"Status"} content={item.status} color={"#93A5CF"} />
+            <CharcterCardText title={"Species"} content={item.species} color={"#93A5CF"}/>
+            <CharcterCardText title={"Gender"} content={item.gender} color={"#93A5CF"}/>
           </View>
         </LinearGradient>
       </Card >
