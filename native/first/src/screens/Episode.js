@@ -33,7 +33,7 @@ const Episode = ({ route, navigation }) => {
   }
   return (
     <View>
-      <Card containerStyle={{ padding: 0 }}>
+      <Card containerStyle={{ padding: 0, margin: 0 }}>
         <LinearGradient
           colors={['#2EABD1', '#E4EfE9']}
           start={{ x: 0, y: 0 }}
@@ -49,10 +49,11 @@ const Episode = ({ route, navigation }) => {
 
           <Text style={styles.headerText}>Characters</Text>
           <FlatList
-            keyExtractor={(index) => index}
+            keyExtractor={(item) => item.id}
             data={characters}
             horizontal
-            style={{marginBottom: 20}}
+            style={{marginBottom: 20, marginLeft: 10}}
+            showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => navigation.navigate("Detail", { itemId: item.id })}>
                 <View style={styles.episodeContainer}>
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
   },
   gradient: {
     borderRadius: 8,
+    height: "100%"
   },
   episodeContainer: {
     height: 80,

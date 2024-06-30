@@ -10,11 +10,15 @@ const CharacterDetail = ({ route, navigation }) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
 
-  console.log(data)
-
   useEffect(() => {
     getCharacterData();
-  }, []);
+
+    return () => {
+      setLoading(true)
+    }
+
+  }, [itemId]);
+  
 
   const getCharacterData = async () => {
     try {
@@ -41,7 +45,7 @@ const CharacterDetail = ({ route, navigation }) => {
     <View >
       {data.id ?
         <View style={styles.generalView}>
-          <Card containerStyle={{ padding: 0 }}>
+          <Card containerStyle={{ padding: 0, margin: 0 }}>
             <LinearGradient
               colors={['#2EABD1', '#E4EfE9']}
               start={{ x: 0, y: 0 }}
@@ -66,6 +70,7 @@ const CharacterDetail = ({ route, navigation }) => {
               <FlatList
                 keyExtractor={(index) => index}
                 data={data.episode}
+                style={{marginLeft: 10}}
                 horizontal
                 renderItem={({ item }) => (
                   <TouchableOpacity  onPress={() => navigation.navigate("Episode", { itemId: item.split("episode/")[1] })}>
@@ -126,10 +131,7 @@ const styles = StyleSheet.create({
   },
   gradient: {
     borderRadius: 8,
-  },
-  generalView: {
-    marginBottom: 20
-
+    height: "100%"
   },
 
 });
